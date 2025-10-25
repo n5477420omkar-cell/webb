@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title><%= video.title %> - KLH Peer Learning</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">KLH Peer Learning</a></h1>
+    </header>
+    <main>
+      <article class="video-page">
+        <h2><%= video.title %></h2>
+        <p class="meta">Subject: <%= video.subject %> • Tags: <%= video.tags %></p>
+        <video controls width="720">
+          <source src="/video/<%= video.id %>/stream" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <section class="description"><p><%= video.description %></p></section>
+
+        <section class="comments">
+          <h3>Comments & Q&A</h3>
+          <% if (user) { %>
+            <form method="post" action="/video/<%= video.id %>/comments">
+              <textarea name="content" placeholder="Ask a question or post an explanation" required></textarea>
+              <button type="submit">Post</button>
+            </form>
+          <% } else { %>
+            <p><a href="/login">Login</a> to participate in Q&amp;A and comments.</p>
+          <% } %>
+
+          <% comments.forEach(c => { %>
+            <div class="comment">
+              <p class="who"><strong><%= c.name || 'User' %></strong> <span class="when"><%= c.created_at %></span></p>
+              <p><%= c.content %></p>
+            </div>
+          <% }) %>
+        </section>
+      </article>
+    </main>
+  </body>
+</html>

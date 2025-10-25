@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title><%= playlist.name %> - Playlist</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header><h1><a href="/playlists">Playlists</a></h1></header>
+    <main>
+      <h2><%= playlist.name %></h2>
+      <p><%= playlist.description %></p>
+      <section>
+        <% if (videos.length === 0) { %>
+          <p>No videos in this playlist yet.</p>
+        <% } %>
+        <% videos.forEach(v => { %>
+          <div class="video-card"><a href="/video/<%= v.id %>"><%= v.title %></a></div>
+        <% }) %>
+      </section>
+    </main>
+  </body>
+</html>
